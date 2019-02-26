@@ -5,7 +5,9 @@ import (
 	"flag"
 	"github.com/golang/glog"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/metadata"
 	"grpc-gateway-test/proto"
+	"log"
 	"net"
 	"strconv"
 )
@@ -27,6 +29,11 @@ func NewYourService() *YourService {
 }
 
 func (*YourService) Echo(ctx context.Context, msg *proto.StringMessage) (*proto.StringMessage, error) {
+	md, ok := metadata.FromIncomingContext(ctx)
+	if ok {
+		authorizations := md["authorization"]
+		log.Println(authorizations)
+	}
 	return &proto.StringMessage{Value: "it is work"}, nil
 }
 

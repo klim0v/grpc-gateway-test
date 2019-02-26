@@ -3,6 +3,12 @@ Accept: */*
 Cache-Control: no-cache
 
 ###
+POST http://localhost:8080/v1/example/echo
+Authorization: Bearer aabbcc
+Accept: */*
+Cache-Control: no-cache
+
+###
 GET http://localhost:8080/v1/messages/123?revision=3&sub.subfield=aaa
 Accept: */*
 Cache-Control: no-cache
