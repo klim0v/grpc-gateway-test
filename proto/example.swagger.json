@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "proto.proto",
+    "title": "example.proto",
     "version": "version not set"
   },
   "schemes": [
@@ -22,7 +22,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/exampleStringMessage"
+              "$ref": "#/definitions/protoStringMessage"
             }
           }
         },
@@ -32,8 +32,45 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/exampleStringMessage"
+              "$ref": "#/definitions/protoStringMessage"
             }
+          }
+        ],
+        "tags": [
+          "YourService"
+        ]
+      }
+    },
+    "/v1/messages/{message_id}": {
+      "get": {
+        "operationId": "GetMessage",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoMessage"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "message_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "revision",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "sub.subfield",
+            "in": "query",
+            "required": false,
+            "type": "string"
           }
         ],
         "tags": [
@@ -43,7 +80,23 @@
     }
   },
   "definitions": {
-    "exampleStringMessage": {
+    "GetMessageRequestSubMessage": {
+      "type": "object",
+      "properties": {
+        "subfield": {
+          "type": "string"
+        }
+      }
+    },
+    "protoMessage": {
+      "type": "object",
+      "properties": {
+        "text": {
+          "type": "string"
+        }
+      }
+    },
+    "protoStringMessage": {
       "type": "object",
       "properties": {
         "value": {

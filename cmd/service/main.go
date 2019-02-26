@@ -7,6 +7,7 @@ import (
 	"google.golang.org/grpc"
 	"grpc-gateway-test/proto"
 	"net"
+	"strconv"
 )
 
 var (
@@ -15,6 +16,10 @@ var (
 )
 
 type YourService struct {
+}
+
+func (*YourService) GetMessage(ctx context.Context, request *proto.GetMessageRequest) (*proto.Message, error) {
+	return &proto.Message{Text: "massage_id:" + request.GetMessageId() + " revision:" + strconv.Itoa(int(request.GetRevision())) + " sub.subfield:" + request.GetSub().GetSubfield()}, nil
 }
 
 func NewYourService() *YourService {
